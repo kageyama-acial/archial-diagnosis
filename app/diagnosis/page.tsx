@@ -76,34 +76,61 @@ export default function DiagnosisPage() {
     : "opacity-100 translate-x-0";
 
   return (
-    <main className="min-h-screen bg-[#0F0E1A] text-white flex flex-col items-center px-4 py-16">
+    <main className="min-h-screen flex flex-col items-center px-4 py-16"
+      style={{ background: "linear-gradient(135deg, #f0f4ff 0%, #faf0ff 100%)" }}>
+
+      {/* ヘッダー */}
       <div className="w-full max-w-xl mb-8">
-        <div className="flex justify-between text-sm text-gray-400 mb-2">
+        <div className="flex justify-between text-sm text-gray-500 mb-2">
           <span>Q{current + 1} / {questions.length}</span>
           <span>{progress}%</span>
         </div>
-        <div className="w-full bg-gray-800 rounded-full h-2">
+        <div className="w-full bg-white/60 rounded-full h-2">
           <div
-            className="bg-gradient-to-r from-[#7B5CF6] to-[#C84B8B] h-2 rounded-full transition-all duration-300"
-            style={{ width: `${progress}%` }}
+            className="h-2 rounded-full transition-all duration-300"
+            style={{ width: `${progress}%`, background: "linear-gradient(135deg, #7B5CF6, #C84B8B)" }}
           />
         </div>
       </div>
 
+      {/* 質問カード */}
       <div className={`w-full max-w-xl transition-all duration-250 ease-in-out ${slideClass}`}>
-        <div className="bg-[#1A1830] rounded-2xl p-8 mb-8 text-center">
-          <p className="text-xs text-purple-400 mb-4 tracking-widest uppercase">
+        <div className="rounded-3xl p-8 mb-6 text-center"
+          style={{
+            background: "rgba(255,255,255,0.6)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(255,255,255,0.8)",
+            boxShadow: "0 8px 32px rgba(123,92,246,0.08)",
+          }}>
+          <p className="text-xs font-bold mb-4 tracking-widest uppercase"
+            style={{ color: "#7B5CF6" }}>
             {["力の源泉", "フィールドでの役割", "プレースタイル", "判断のよりどころ"][q.axis - 1]}
           </p>
-          <p className="text-xl md:text-2xl font-bold leading-relaxed">{q.text}</p>
+          <p className="text-xl md:text-2xl font-bold leading-relaxed text-gray-900">{q.text}</p>
         </div>
 
+        {/* 選択肢 */}
         <div className="flex flex-col gap-3">
           {labels.map((label, i) => (
             <button
               key={i}
               onClick={() => handleAnswer(i + 1)}
-              className="w-full py-4 rounded-xl border border-gray-700 hover:border-purple-500 hover:bg-[#2A2050] transition text-gray-300 hover:text-white font-medium"
+              className="w-full py-4 rounded-2xl font-medium transition-all duration-200 text-gray-700 hover:text-white"
+              style={{
+                background: "rgba(255,255,255,0.6)",
+                backdropFilter: "blur(10px)",
+                border: "1px solid rgba(255,255,255,0.8)",
+                boxShadow: "0 2px 8px rgba(123,92,246,0.06)",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLButtonElement).style.background = "linear-gradient(135deg, #7B5CF6, #C84B8B)";
+                (e.currentTarget as HTMLButtonElement).style.border = "1px solid transparent";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.6)";
+                (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(255,255,255,0.8)";
+              }}
             >
               {label}
             </button>
@@ -113,7 +140,7 @@ export default function DiagnosisPage() {
 
       <button
         onClick={handleBack}
-        className="mt-10 text-gray-400 hover:text-white transition text-sm underline"
+        className="mt-10 text-gray-400 hover:text-gray-700 transition text-sm underline"
       >
         {current === 0 ? "← トップに戻る" : "← 前の質問に戻る"}
       </button>
