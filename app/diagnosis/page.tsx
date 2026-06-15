@@ -3,29 +3,29 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const questions = [
-  { id: 1, axis: 1, text: "繝√・繝縺ｧ逶ｮ讓吶↓蜷代°縺・→縺阪∽ｸ莠ｺ縺ｮ縺ｨ縺阪ｈ繧雁鴨縺梧ｹｧ縺・※縺上ｋ" },
-  { id: 2, axis: 1, text: "莉ｲ髢薙′鬆大ｼｵ縺｣縺ｦ縺・ｋ蟋ｿ繧定ｦ九ｋ縺ｨ縲∬・蛻・ｂ繧・ｋ豌励′荳翫′繧・ },
-  { id: 3, axis: 1, text: "隱ｰ縺九→荳邱偵↓蜿悶ｊ邨・・譁ｹ縺後∵・譫懊′蜃ｺ繧・☆縺・→諢溘§繧・ },
-  { id: 4, axis: 1, text: "繝√・繝縺ｮ髮ｰ蝗ｲ豌励′閾ｪ蛻・・繝代ヵ繧ｩ繝ｼ繝槭Φ繧ｹ縺ｫ螟ｧ縺阪￥蠖ｱ髻ｿ縺吶ｋ" },
-  { id: 5, axis: 1, text: "莉ｲ髢薙→蝟懊・繧貞・縺九■蜷医≧縺薙→縺後∽ｻ穂ｺ九・繝｢繝√・繝ｼ繧ｷ繝ｧ繝ｳ縺ｫ縺ｪ繧・ },
-  { id: 6, axis: 2, text: "譁ｰ縺励＞縺薙→縺ｫ謖第姶縺励∬・繧蛾％繧貞・繧頑挙縺上％縺ｨ縺ｫ繧・ｊ縺後＞繧呈─縺倥ｋ" },
-  { id: 7, axis: 2, text: "迴ｾ迥ｶ縺ｫ貅雜ｳ縺帙★縲√ｈ繧願憶縺・婿豕輔ｒ謗｢縺励※蜍輔￥縺薙→縺悟･ｽ縺阪□" },
-  { id: 8, axis: 2, text: "隱ｰ繧ゅｄ縺｣縺ｦ縺・↑縺・％縺ｨ縺ｫ蜿悶ｊ邨・・縺ｨ縺阪√Ρ繧ｯ繝ｯ繧ｯ縺吶ｋ" },
-  { id: 9, axis: 2, text: "隱ｲ鬘後′縺ゅｌ縺ｰ縲∬・蛻・°繧牙虚縺・※隗｣豎ｺ縺励ｈ縺・→縺吶ｋ" },
-  { id: 10, axis: 2, text: "繝√Ε繝ｬ繝ｳ繧ｸ縺吶ｋ縺薙→繧医ｊ縲∫｢ｺ螳溘↓謌先棡繧貞・縺吶％縺ｨ繧帝㍾隕悶☆繧・, reverse: true },
-  { id: 11, axis: 3, text: "陦悟虚縺吶ｋ蜑阪↓縲∝・菴薙・險育判繧堤ｫ九※縺ｦ縺九ｉ蜍輔″縺溘＞" },
-  { id: 12, axis: 3, text: "繧ｴ繝ｼ繝ｫ縺九ｉ騾・ｮ励＠縺ｦ縲∵ｮｵ蜿悶ｊ繧堤ｵ・・縺薙→縺悟ｾ玲э縺" },
-  { id: 13, axis: 3, text: "隕矩壹＠縺檎ｫ九▲縺ｦ縺九ｉ蜍輔￥譁ｹ縺後∝鴨繧堤匱謠ｮ縺ｧ縺阪ｋ" },
-  { id: 14, axis: 3, text: "陦後″蠖薙◆繧翫・縺｣縺溘ｊ繧医ｊ縲∵ｺ門ｙ縺励※縺九ｉ閾ｨ繧譁ｹ縺悟･ｽ縺阪□" },
-  { id: 15, axis: 3, text: "閠・∴繧九ｈ繧雁・縺ｫ蜍輔＞縺ｦ縺励∪縺・％縺ｨ縺悟､壹＞", reverse: true },
-  { id: 16, axis: 4, text: "縲後％繧後□・√阪→縺・≧逶ｴ諢溘ｄ辭ｱ驥上〒蜍輔￥縺薙→縺悟､壹＞" },
-  { id: 17, axis: 4, text: "逅・ｱ医ｈ繧翫∬・蛻・′繝ｯ繧ｯ繝ｯ繧ｯ縺吶ｋ縺九←縺・°縺ｧ蛻､譁ｭ縺吶ｋ縺薙→縺悟､壹＞" },
-  { id: 18, axis: 4, text: "諢滓ュ縺悟虚縺・◆縺ｨ縺阪∽ｸ逡ｪ蜉帙′蜃ｺ繧九→諢溘§繧・ },
-  { id: 19, axis: 4, text: "諠・ｱ繧呈紛逅・＠縺ｦ縺九ｉ蜍輔￥繧医ｊ縲√∪縺壽─縺倥※縺九ｉ閠・∴繧九ち繧､繝励□" },
-  { id: 20, axis: 4, text: "繝・・繧ｿ繧・ｹ諡縺梧純縺｣縺ｦ縺九ｉ蜍輔￥譁ｹ縺悟ｮ牙ｿ・☆繧・, reverse: true },
+  { id: 1, axis: 1, text: "チームで目標に向かうとき、一人のときより力が湧いてくる" },
+  { id: 2, axis: 1, text: "仲間が頑張っている姿を見ると、自分もやる気が上がる" },
+  { id: 3, axis: 1, text: "誰かと一緒に取り組む方が、成果が出やすいと感じる" },
+  { id: 4, axis: 1, text: "チームの雰囲気が自分のパフォーマンスに大きく影響する" },
+  { id: 5, axis: 1, text: "仲間と喜びを分かち合うことが、仕事のモチベーションになる" },
+  { id: 6, axis: 2, text: "新しいことに挑戦し、自ら道を切り拓くことにやりがいを感じる" },
+  { id: 7, axis: 2, text: "現状に満足せず、より良い方法を探して動くことが好きだ" },
+  { id: 8, axis: 2, text: "誰もやっていないことに取り組むとき、ワクワクする" },
+  { id: 9, axis: 2, text: "課題があれば、自分から動いて解決しようとする" },
+  { id: 10, axis: 2, text: "チャレンジすることより、確実に成果を出すことを重視する", reverse: true },
+  { id: 11, axis: 3, text: "行動する前に、全体の計画を立ててから動きたい" },
+  { id: 12, axis: 3, text: "ゴールから逆算して、段取りを組むことが得意だ" },
+  { id: 13, axis: 3, text: "見通しが立ってから動く方が、力を発揮できる" },
+  { id: 14, axis: 3, text: "行き当たりばったりより、準備してから臨む方が好きだ" },
+  { id: 15, axis: 3, text: "考えるより先に動いてしまうことが多い", reverse: true },
+  { id: 16, axis: 4, text: "これだという直感や熱量で動くことが多い" },
+  { id: 17, axis: 4, text: "理屈より、自分がワクワクするかどうかで判断することが多い" },
+  { id: 18, axis: 4, text: "感情が動いたとき、一番力が出ると感じる" },
+  { id: 19, axis: 4, text: "情報を整理してから動くより、まず感じてから考えるタイプだ" },
+  { id: 20, axis: 4, text: "データや根拠が揃ってから動く方が安心する", reverse: true },
 ];
 
-const labels = ["蜈ｨ縺丞ｽ薙※縺ｯ縺ｾ繧峨↑縺・, "縺ゅ∪繧雁ｽ薙※縺ｯ縺ｾ繧峨↑縺・, "縺ｩ縺｡繧峨〒繧ゅ↑縺・, "繧・ｄ蠖薙※縺ｯ縺ｾ繧・, "縺ｨ縺ｦ繧ょｽ薙※縺ｯ縺ｾ繧・];
+const labels = ["全く当てはまらない", "あまり当てはまらない", "どちらでもない", "やや当てはまる", "とても当てはまる"];
 
 export default function DiagnosisPage() {
   const router = useRouter();
@@ -39,7 +39,6 @@ export default function DiagnosisPage() {
     const actual = (q as any).reverse ? 6 - score : score;
     const newAnswers = { ...answers, [q.id]: actual };
     setAnswers(newAnswers);
-
     if (current + 1 < questions.length) {
       setCurrent(current + 1);
     } else {
@@ -51,8 +50,16 @@ export default function DiagnosisPage() {
     }
   };
 
+  const handleBack = () => {
+    if (current > 0) {
+      setCurrent(current - 1);
+    } else {
+      router.push("/");
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-[#0F0E1A] text-white flex flex-col items-center justify-center px-4 py-12">
+    <main className="min-h-screen bg-[#0F0E1A] text-white flex flex-col items-center px-4 py-16">
       <div className="w-full max-w-xl mb-8">
         <div className="flex justify-between text-sm text-gray-400 mb-2">
           <span>Q{current + 1} / {questions.length}</span>
@@ -65,12 +72,14 @@ export default function DiagnosisPage() {
           />
         </div>
       </div>
+
       <div className="w-full max-w-xl bg-[#1A1830] rounded-2xl p-8 mb-8 text-center">
         <p className="text-xs text-purple-400 mb-4 tracking-widest uppercase">
-          {["蜉帙・貅先ｳ・, "繝輔ぅ繝ｼ繝ｫ繝峨〒縺ｮ蠖ｹ蜑ｲ", "繝励Ξ繝ｼ繧ｹ繧ｿ繧､繝ｫ", "蛻､譁ｭ縺ｮ繧医ｊ縺ｩ縺薙ｍ"][q.axis - 1]}
+          {["力の源泉", "フィールドでの役割", "プレースタイル", "判断のよりどころ"][q.axis - 1]}
         </p>
         <p className="text-xl md:text-2xl font-bold leading-relaxed">{q.text}</p>
       </div>
+
       <div className="w-full max-w-xl flex flex-col gap-3">
         {labels.map((label, i) => (
           <button
@@ -82,8 +91,13 @@ export default function DiagnosisPage() {
           </button>
         ))}
       </div>
-          <button onClick={handleBack} className="mt-10 text-gray-500 hover:text-gray-300 transition text-sm">← トップに戻る/前の質問</button>
+
+      <button
+        onClick={handleBack}
+        className="mt-10 text-gray-400 hover:text-white transition text-sm underline"
+      >
+        {current === 0 ? "← トップに戻る" : "← 前の質問に戻る"}
+      </button>
     </main>
   );
 }
-

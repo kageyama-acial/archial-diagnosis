@@ -21,10 +21,10 @@ export default function Home() {
       {/* CTA Section */}
       <div className="flex flex-col items-center gap-6 py-12 px-4 text-center">
         <h1 className="text-3xl md:text-4xl font-bold">
-          あなたの<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7B5CF6] to-[#C84B8B]">エンジニア適性</span>を診断しよう
+          あなたの<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7B5CF6] to-[#C84B8B]">ビジネスアスリート適性</span>を診断しよう
         </h1>
         <p className="text-gray-400 max-w-xl text-lg">
-          スポーツ経験者3,000名以上のデータから生まれた<br />
+          スポーツ経験者5,000名以上のデータから生まれた<br />
           アーシャルデザイン独自の16タイプ診断
         </p>
         <Link
