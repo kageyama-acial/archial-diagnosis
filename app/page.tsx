@@ -7,7 +7,7 @@ const types = [
   { code: "AABA", name: "炎のストライカー", sport: "ラグビー" },
   { code: "AABB", name: "冷静エース", sport: "ラクロス" },
   { code: "ABAA", name: "熱血参謀", sport: "ソフトボール" },
-  { code: "ABAB", name: "鉄壁プレイン", sport: "ハンドボール" },
+  { code: "ABAB", name: "鉄壁ブレイン", sport: "ハンドボール" },
   { code: "ABBA", name: "緑の下の熱狂者", sport: "陸上（短距離）" },
   { code: "ABBB", name: "堅守サポーター", sport: "野球" },
   { code: "BAAA", name: "孤高のビジョナリー", sport: "アーチェリー" },
