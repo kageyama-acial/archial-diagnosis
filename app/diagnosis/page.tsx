@@ -31,16 +31,27 @@ export default function DiagnosisPage() {
   const router = useRouter();
   const [answers, setAnswers] = useState<{ [key: number]: number }>({});
   const [current, setCurrent] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
 
   const q = questions[current];
   const progress = Math.round((current / questions.length) * 100);
+
+  const goTo = (index: number, dir: "next" | "prev") => {
+    setDirection(dir);
+    setAnimating(true);
+    setTimeout(() => {
+      setCurrent(index);
+      setAnimating(false);
+    }, 250);
+  };
 
   const handleAnswer = (score: number) => {
     const actual = (q as any).reverse ? 6 - score : score;
     const newAnswers = { ...answers, [q.id]: actual };
     setAnswers(newAnswers);
     if (current + 1 < questions.length) {
-      setCurrent(current + 1);
+      goTo(current + 1, "next");
     } else {
       const axisScores = [1, 2, 3, 4].map((axis) =>
         questions.filter((q) => q.axis === axis).reduce((sum, q) => sum + (newAnswers[q.id] || 0), 0)
@@ -52,11 +63,17 @@ export default function DiagnosisPage() {
 
   const handleBack = () => {
     if (current > 0) {
-      setCurrent(current - 1);
+      goTo(current - 1, "prev");
     } else {
       router.push("/");
     }
   };
+
+  const slideClass = animating
+    ? direction === "next"
+      ? "opacity-0 translate-x-8"
+      : "opacity-0 -translate-x-8"
+    : "opacity-100 translate-x-0";
 
   return (
     <main className="min-h-screen bg-[#0F0E1A] text-white flex flex-col items-center px-4 py-16">
@@ -73,23 +90,25 @@ export default function DiagnosisPage() {
         </div>
       </div>
 
-      <div className="w-full max-w-xl bg-[#1A1830] rounded-2xl p-8 mb-8 text-center">
-        <p className="text-xs text-purple-400 mb-4 tracking-widest uppercase">
-          {["力の源泉", "フィールドでの役割", "プレースタイル", "判断のよりどころ"][q.axis - 1]}
-        </p>
-        <p className="text-xl md:text-2xl font-bold leading-relaxed">{q.text}</p>
-      </div>
+      <div className={`w-full max-w-xl transition-all duration-250 ease-in-out ${slideClass}`}>
+        <div className="bg-[#1A1830] rounded-2xl p-8 mb-8 text-center">
+          <p className="text-xs text-purple-400 mb-4 tracking-widest uppercase">
+            {["力の源泉", "フィールドでの役割", "プレースタイル", "判断のよりどころ"][q.axis - 1]}
+          </p>
+          <p className="text-xl md:text-2xl font-bold leading-relaxed">{q.text}</p>
+        </div>
 
-      <div className="w-full max-w-xl flex flex-col gap-3">
-        {labels.map((label, i) => (
-          <button
-            key={i}
-            onClick={() => handleAnswer(i + 1)}
-            className="w-full py-4 rounded-xl border border-gray-700 hover:border-purple-500 hover:bg-[#2A2050] transition text-gray-300 hover:text-white font-medium"
-          >
-            {label}
-          </button>
-        ))}
+        <div className="flex flex-col gap-3">
+          {labels.map((label, i) => (
+            <button
+              key={i}
+              onClick={() => handleAnswer(i + 1)}
+              className="w-full py-4 rounded-xl border border-gray-700 hover:border-purple-500 hover:bg-[#2A2050] transition text-gray-300 hover:text-white font-medium"
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <button
