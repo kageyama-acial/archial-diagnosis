@@ -108,6 +108,8 @@ function ResultContent() {
   const typeCode = searchParams.get("type") || "AAAA";
   const type = typeData[typeCode] || typeData["AAAA"];
 
+  const shareText = encodeURIComponent(`私のビジネスアスリート適性診断結果は「${type.name}」でした！\n「${type.catch}」\n\nあなたも診断してみよう👇\nhttps://archial-diagnosis.vercel.app`);
+
   return (
     <main className="min-h-screen bg-[#0F0E1A] text-white flex flex-col items-center px-4 py-16">
       <p className="text-purple-400 text-sm tracking-widest mb-4">診断結果</p>
@@ -135,13 +137,21 @@ function ResultContent() {
         ))}
       </div>
 
-      <div className="flex gap-4 flex-wrap justify-center">
+      <div className="flex gap-4 flex-wrap justify-center mb-4">
         <Link href="/" className="px-8 py-3 rounded-full border border-gray-600 hover:border-purple-500 transition text-gray-300 hover:text-white">
           トップに戻る
         </Link>
         <Link href="/diagnosis" className="px-8 py-3 rounded-full bg-gradient-to-r from-[#7B5CF6] to-[#C84B8B] hover:opacity-90 transition font-bold">
           もう一度診断する
         </Link>
+        <a
+          href={`https://twitter.com/intent/tweet?text=${shareText}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-8 py-3 rounded-full bg-black hover:opacity-80 transition font-bold flex items-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.737-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Xでシェア
+        </a>
       </div>
     </main>
   );
