@@ -31,6 +31,69 @@ function toHearts(s: number): number {
 }
 
 const compatibilityComments: { [key: string]: { reason: string } } = {
+  "TGPH-TAMH": { reason: "情熱とチーム愛という核が共通。Guard/AttackとPlan/Moveの違いが補完的な役割分担を生みます。" },
+  "TGPH-TAPH": { reason: "チームと情熱という根本が一致。Guard/AttackとPlan/Moveの違いが自然な役割分担につながります。" },
+  "TGPH-TGMH": { reason: "チームと守りと情熱が共通。Plan/Moveの違いが互いの判断に幅をもたらします。" },
+  "TGPH-TGML": { reason: "チームと守りという核が共通。Heart/LogicとMove/Planの違いが補完的な強みを生みます。" },
+  "TGPH-TGPL": { reason: "チームと守りという核が共通。Heart/LogicとMove/Planの違いが判断の幅を広げます。" },
+  "TAML-TGPH": { reason: "チームへの貢献意識が共通。Attack/GuardとLogic/Heartの違いが補完的な視点をもたらします。" },
+  "TAPL-TGMH": { reason: "チームと計画性が共通。Attack/GuardとLogic/Heartの違いが豊かな判断力を生みます。" },
+  "TGPL-TAMH": { reason: "チームと守りへの使命感が共通。Plan/MoveとLogic/Heartの違いが補完関係をつくります。" },
+  "TGPL-TAPH": { reason: "チームと守りという核が共通。Plan/MoveとLogic/Heartの違いが視点を広げます。" },
+  "TGPL-TGMH": { reason: "チームと守りという核が共通。Plan/MoveとLogic/Heartの違いが補完的な強みをもたらします。" },
+  "TAMH-TGPH": { reason: "チームと情熱という核が共通。Attack/GuardとMove/Planの違いが自然な役割分担を生みます。" },
+  "TAMH-TAML": { reason: "チームと攻めという核が共通。Heart/Logicの違いが判断に深みをもたらします。" },
+  "TAMH-TAPH": { reason: "チームと攻めと情熱が共通。Move/Planの違いが補完的な行動パターンを生みます。" },
+  "TAPH-TAMH": { reason: "チームと攻めと情熱が共通。Plan/Moveの違いが互いを高め合う関係をつくります。" },
+  "TAPH-TAML": { reason: "チームと攻めが共通。Heart/LogicとPlan/Moveの違いが補完的な判断力を生みます。" },
+  "TAML-TAMH": { reason: "チームと攻めという核が共通。Logic/Heartの違いが判断に深みをもたらします。" },
+  "TAML-TAPH": { reason: "チームと攻めが共通。Logic/HeartとPlan/Moveの違いが補完的な強みを生みます。" },
+  "TAPL-TAPH": { reason: "チームと攻めと論理が共通。Plan/Moveの違いが補完的な行動パターンをもたらします。" },
+  "TAPL-TGPH": { reason: "チームと計画性が共通。Attack/GuardとLogic/Heartの違いが豊かな視点をもたらします。" },
+  "SAMH-TGPH": { reason: "情熱と行動力が共通。Team/SoloとAttack/Guardの違いが新鮮な補完関係を生みます。" },
+  "SAPH-TGMH": { reason: "Heart×Moveという核が共通。Team/SoloとAttack/Guardの違いが互いを高め合います。" },
+  "SAPH-TGPL": { reason: "行動力が共通の核。多くの違いが補完関係となり多角的な視点が生まれます。" },
+  "SAML-TGMH": { reason: "攻めと論理が共通。Team/SoloとMove/Planの違いが補完的な強みをもたらします。" },
+  "SAML-TGPL": { reason: "論理と計画が共通。Team/SoloとAttack/Guardの違いが新鮮な視点をもたらします。" },
+  "SAPL-TGPH": { reason: "計画性が共通。多くの違いが補完関係となり、組織に多様な強みをもたらします。" },
+  "SAPL-TGML": { reason: "論理と守りと計画が共通。Team/SoloとAttack/Guardの違いが補完的な視点を生みます。" },
+  "SAPL-TGMH": { reason: "攻めと計画という核が共通。Team/SoloとHeart/Logicの違いが補完的な強みをもたらします。" },
+  "SGMH-TAPH": { reason: "Heart×Moveという核が共通。Team/SoloとAttack/Guardの違いが豊かな視点をもたらします。" },
+  "SGMH-TGPH": { reason: "Guard×Heart×Moveという3軸が共通。Team/Soloの違いが新鮮な視点をもたらします。" },
+  "SGML-TGPH": { reason: "守りと計画が共通。Team/SoloとHeart/Logicの違いが補完的な判断力を生みます。" },
+  "SGPL-TGPH": { reason: "守りと計画が共通。Team/SoloとHeart/Logicの違いが補完的な強みをもたらします。" },
+  "SGPH-TGMH": { reason: "Guard×Heart×Planという核が共通。Team/SoloとMove/Planの違いが補完関係を生みます。" },
+  "SGPH-TGML": { reason: "守りと計画が共通。Team/SoloとHeart/Logicの違いが豊かな判断力をもたらします。" },
+  "SGPH-TGPL": { reason: "Solo×Guard×Heart×Planという4軸すべてが共通。Team/Soloの違いだけが新鮮な視点を生みます。" },
+
+  "TAMH-TAML": { reason: "熱量とチーム愛が共通。Heart/Logicの違いが判断に深みをもたらし、最強のコンビネーションを生みます。" },
+  "TAMH-TAPH": { reason: "同じ熱量とチーム愛を持ちながら、行動と計画が噛み合う最高の相棒。お互いの動き方が自然と連動します。" },
+  "TAPH-TGML": { reason: "チームへの愛と行動力が共通。Attack/Guardの違いが自然な役割分担を生みます。" },
+  "TAPH-TGPL": { reason: "チームと行動力が共通。Attack/Guardと Heart/Logicの違いが補完関係を生みます。" },
+  "TAPL-TGMH": { reason: "チームへの献身と論理的思考が共通。攻守の違いが自然な役割分担につながります。" },
+  "TAPL-TGPH": { reason: "チームへの愛が共通の核。Logic/Heartと Attack/Guardの違いが補完的な強みを生みます。" },
+  "TGMH-TAML": { reason: "チームへの貢献意識が共通。Attack/Guardと Heart/Logicの違いが豊かな視点をもたらします。" },
+  "TGMH-TAPL": { reason: "チームへの献身と戦略眼が共通。攻守の違いが理想的な役割分担を生みます。" },
+  "TGPH-TAML": { reason: "チームへの情熱が共通。Guard/AttackとHeart/Logicの違いが補完関係をつくります。" },
+  "TGPH-TAPL": { reason: "チームへの愛と計画性が共通。Guard/AttackとHeart/Logicの違いが視野を広げます。" },
+  "TGPH-TGML": { reason: "チームと守りへの使命感が共通。Heart/Logicの違いが判断に深みをもたらします。" },
+  "TGPH-TGPL": { reason: "チームと守りという核が共通。Heart/Logicと Move/Planの違いが補完関係を生みます。" },
+  "TGPH-SAMH": { reason: "Heart×Moveという行動の核が共通。Team/SoloとAttack/Guardの違いが新鮮な視点をもたらします。" },
+  "TGPH-SAML": { reason: "行動力が共通の核。Team/SoloとAttack/GuardとHeart/Logicの違いが補完的な強みを生みます。" },
+  "TGPH-SAPH": { reason: "Heart×Moveという核が完全一致。Team/SoloとAttack/Guardの違いが互いを高め合います。" },
+  "TGPH-SAPL": { reason: "行動力と計画性が共通。多くの違いが補完関係となり、多角的な視点が生まれます。" },
+  "TGPH-SGMH": { reason: "Guard×Heartという核が共通。Team/SoloとMove/Planの違いが補完的な強みをもたらします。" },
+  "TGPH-SGML": { reason: "守りへの使命感が共通。Heart/LogicとTeam/Soloの違いが豊かな判断力を生みます。" },
+  "TGPH-SGPH": { reason: "Guard×Heart×Moveという3軸が共通。Team/Soloの違いが新鮮な視点をもたらします。" },
+  "TGPH-SGPL": { reason: "守りという核が共通。多くの違いが補完関係となり、組織に多様な強みをもたらします。" },
+  "SAMH-TAPH": { reason: "Attack×Heart×Moveという核が共通。Team/Soloの違いが互いに新鮮な視点をもたらします。" },
+  "SAML-TAML": { reason: "Attack×Logic×Planという核が共通。Team/Soloの違いが補完的な視野をもたらします。" },
+  "SAPH-TGPH": { reason: "Heart×Moveという核が共通。Attack/GuardとTeam/Soloの違いが補完関係を生みます。" },
+  "SAPL-TAPL": { reason: "Attack×Logic×Planという核が共通。Team/Soloの違いが新鮮な補完関係をもたらします。" },
+  "SGMH-TAMH": { reason: "Heart×Moveという核が共通。Team/SoloとAttack/Guardの違いが豊かな視点をもたらします。" },
+  "SGML-TAML": { reason: "Logic×Planという核が共通。Team/SoloとAttack/Guardの違いが補完的な強みを生みます。" },
+  "SGPH-TAPH": { reason: "Heart×Planという核が共通。Team/SoloとAttack/Guardの違いが互いを高め合います。" },
+  "SGPL-TAPL": { reason: "Logic×Planという核が共通。Team/SoloとAttack/Guardの違いが補完的な視野をもたらします。" },
   "TAMH-TAPH": { reason: "同じ熱量とチーム愛を持ちながら、直感と戦略が噛み合う最高の相棒。お互いの動き方が自然と連動します。" },
   "TAMH-TGMH": { reason: "あなたが前に出て引っ張り、相手が内側を固める黄金の役割分担。2人がいるとチームが最強になります。" },
   "TAML-TAMH": { reason: "熱量と論理が融合した最強コンビ。あなたの戦略に相手の熱量が乗ると、チームが一気に動き出します。" },
@@ -165,7 +228,12 @@ function CompatibilitySection({ myCode }: { myCode: string }) {
       const h = toHearts(s);
       const key1 = `${myCode}-${b}`;
       const key2 = `${b}-${myCode}`;
-      const comment = compatibilityComments[key1] || compatibilityComments[key2] || null;
+      const axes1 = typeAxes[myCode];
+      const axes2 = typeAxes[b];
+      const sharedAxes = [["Team","Solo"],["Attack","Guard"],["Move","Plan"],["Heart","Logic"]].filter((_,i) => axes1[i] === axes2[i]).map((pair, i) => axes1[[...Array(4).keys()].filter(j => axes1[j] === axes2[j])[i]] === 1 ? pair[0] : pair[1]);
+      const diffAxes = [["Team","Solo"],["Attack","Guard"],["Move","Plan"],["Heart","Logic"]].filter((_,i) => axes1[i] !== axes2[i]);
+      const autoComment = sharedAxes.length > 0 ? `${sharedAxes.join("×")}という共通の核を持つ。${diffAxes.map(p => p.join("/")).join("と")}の違いが補完的な強みをもたらします。` : "すべての軸が異なるからこそ、互いにない視点を持ち寄れる稀有な組み合わせ。";
+      const comment = compatibilityComments[key1] || compatibilityComments[key2] || { reason: autoComment };
       const bridge = bridgeComments[key1] || bridgeComments[key2] || null;
       return { code: b, score: s, hearts: h, comment, bridge };
     })
@@ -255,16 +323,19 @@ function ResultContent() {
 
   return (
     <main className="min-h-screen px-4 py-12" style={{ background: "#f8f7ff" }}>
-      <div className="max-w-2xl mx-auto mb-6 text-center">
-        <p className="text-xs font-bold tracking-widest mb-4" style={{ color: "#7B5CF6" }}>診断結果</p>
-        <div className="w-48 h-48 relative mx-auto mb-4">
-          <Image src={type.img} alt={type.name} fill className="object-contain object-top" />
+      {/* スマホ：ヒーローカード型 */}
+      <div className="md:hidden max-w-2xl mx-auto mb-6">
+        <div className="rounded-3xl overflow-visible relative" style={{ background: `linear-gradient(135deg, #7B5CF6, #C84B8B)`, paddingBottom: "60px" }}>
+          <div className="text-center pt-8 px-6">
+            <p className="text-xs font-bold tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>診断結果</p>
+            <h1 className="text-3xl font-black mb-2" style={{ color: "white" }}>{type.name}</h1>
+            <p className="text-sm mb-0" style={{ color: "rgba(255,255,255,0.75)" }}>{type.catch}</p>
+          </div>
+          <div className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[50%]" style={{ width: "120px", height: "120px", background: "white", borderRadius: "50%", boxShadow: "0 8px 32px rgba(123,92,246,0.25)", overflow: "hidden" }}>
+            <Image src={type.img} alt={type.name} fill className="object-contain" />
+          </div>
         </div>
-        <h1 className={`text-3xl font-black mb-1 text-transparent bg-clip-text bg-gradient-to-r ${type.color}`}>
-          {type.name}
-        </h1>
-        <p className="text-sm text-gray-500 mb-4">{type.catch}</p>
-        <div className="flex flex-wrap gap-2 justify-center mb-2">
+        <div className="flex flex-wrap gap-2 justify-center mt-20 mb-2">
           {typeCode.split("").map((val, i) => (
             <span key={i} className="px-3 py-1 rounded-full text-xs font-bold"
               style={{ background: `${axisConfig[i].color}12`, border: `1px solid ${axisConfig[i].color}35`, color: axisConfig[i].color }}>
@@ -274,12 +345,34 @@ function ResultContent() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto flex flex-col gap-3 mb-6">
+      {/* PC：ワイドヒーロー＋2カラムグリッド */}
+      <div className="hidden md:block max-w-4xl mx-auto mb-8">
+        <div className="rounded-3xl p-8 flex items-center gap-8 mb-6" style={{ background: "linear-gradient(160deg, #7B5CF6, #C84B8B)" }}>
+          <div style={{ width: "150px", height: "150px", flexShrink: 0, background: "white", borderRadius: "50%", boxShadow: "0 8px 32px rgba(123,92,246,0.25)", overflow: "visible", position: "relative" }}>
+            <Image src={type.img} alt={type.name} fill className="object-contain scale-150 translate-y-[-10%]" />
+          </div>
+          <div className="flex-1">
+            <p className="text-xs font-bold tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.6)" }}>診断結果 — {typeCode}</p>
+            <h1 className="text-4xl font-black mb-1" style={{ color: "white" }}>{type.name}</h1>
+            <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.75)" }}>{type.catch}</p>
+            <div className="flex flex-wrap gap-2">
+              {typeCode.split("").map((val, i) => (
+                <span key={i} className="px-3 py-1 rounded-full text-xs font-bold"
+                  style={{ background: "rgba(255,255,255,0.2)", color: "white" }}>
+                  {axisConfig[i].icon} {val === ["T","A","M","H"][i] ? axisConfig[i].label[0] : axisConfig[i].label[1]}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-2xl md:max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
         {categories.map((cat) => (
           <div key={cat.key} className="rounded-2xl p-5" style={{ background: "white", border: "1px solid rgba(123,92,246,0.1)", boxShadow: "0 2px 8px rgba(123,92,246,0.04)" }}>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-base">{cat.icon}</span>
-              <h2 className="text-xs font-bold tracking-wide" style={{ color: "#7B5CF6" }}>{cat.label}</h2>
+              <h2 className="text-sm font-bold tracking-wide" style={{ color: "#7B5CF6" }}>{cat.label}</h2>
             </div>
             <p className="text-gray-700 leading-relaxed text-sm">{type[cat.key]}</p>
           </div>
@@ -313,6 +406,15 @@ export default function ResultPage() {
     </Suspense>
   );
 }
+
+
+
+
+
+
+
+
+
 
 
 

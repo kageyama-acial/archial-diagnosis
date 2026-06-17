@@ -102,7 +102,8 @@ export default function DiagnosisPage() {
         s.questions.reduce((sum, q) => sum + (answers[q.id] || 0), 0)
       );
       const maxScores = sections.map(s => s.questions.length * 5);
-      const types = axisScores.map((score, i) => (score >= maxScores[i] / 2 ? "A" : "B"));
+      const axisLetters = [["T","S"],["A","G"],["M","P"],["H","L"]];
+      const types = axisScores.map((score, i) => (score >= maxScores[i] / 2 ? axisLetters[i][0] : axisLetters[i][1]));
       router.push(`/result?type=${types.join("")}`);
     } else {
       setCurrentSection(prev => prev + 1);
@@ -252,6 +253,7 @@ export default function DiagnosisPage() {
     </main>
   );
 }
+
 
 
 
