@@ -190,13 +190,13 @@ export default function DiagnosisPage() {
                             width: `${size}px`,
                             height: `${size}px`,
                             borderRadius: "50%",
-                            border: `2.5px solid ${color}`,
-                            background: isSelected ? color : `${color}18`,
+                            border: "none",
+              background: isSelected ? color : `${color}22`,
                             transition: "all 0.2s ease",
                             flexShrink: 0,
                             outline: "none",
                             cursor: "pointer",
-                            boxShadow: isSelected ? `0 3px 12px ${color}60` : "none",
+                           boxShadow: isSelected ? `0 0 0 5px ${color}44, 0 3px 12px ${color}60` : "none",
                             transform: isSelected ? "scale(1.15)" : "scale(1)",
                           }}
                           onMouseEnter={e => {
@@ -253,6 +253,7 @@ export default function DiagnosisPage() {
     </main>
   );
 }
+
 
 
 
