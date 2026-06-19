@@ -319,7 +319,7 @@ const typeNames: { [k: string]: string } = {
 const axisConfig = [
   { label: ["チーム型", "ソロ型"], icon: "👥", color: "#C84B8B" },
   { label: ["攻撃型", "守備型"], icon: "⚡", color: "#8B5CF6" },
-  { label: ["情熱型", "思考型"], icon: "🔥", color: "#10B981" },
+  { label: ["本能型", "思考型"], icon: "🔥", color: "#10B981" },
   { label: ["行動型", "計画型"], icon: "💜", color: "#F59E0B" },
 ];
 
@@ -421,10 +421,10 @@ function CompatibilitySection({ myCode }: { myCode: string }) {
 }
 function AxisBarometer({ scores }: { scores: number[] }) {
   const axes = [
-    { label1: "チーム型", label2: "ソロ型", color: "#C84B8B", colorEnd: "#3B82F6", pct: scores[0] },
-    { label1: "攻撃型", label2: "守備型", color: "#8B5CF6", colorEnd: "#06B6D4", pct: scores[1] },
-    { label1: "情熱型", label2: "思考型", color: "#10B981", colorEnd: "#84CC16", pct: scores[2] },
-    { label1: "行動型", label2: "計画型", color: "#F59E0B", colorEnd: "#EF4444", pct: scores[3] },
+    { label1: "チーム型", label2: "ソロ型", color: "#C84B8B", pct: scores[0] },
+    { label1: "攻撃型", label2: "守備型", color: "#8B5CF6", pct: scores[1] },
+    { label1: "本能型", label2: "思考型", color: "#10B981", pct: scores[2] },
+    { label1: "行動型", label2: "計画型", color: "#F59E0B", pct: scores[3] },
   ];
   return (
     <div className="w-full rounded-2xl p-5 mb-3" style={{ background: "white", border: "1px solid rgba(123,92,246,0.1)", boxShadow: "0 2px 8px rgba(123,92,246,0.04)" }}>
@@ -433,22 +433,29 @@ function AxisBarometer({ scores }: { scores: number[] }) {
         <h2 className="text-sm font-bold tracking-wide" style={{ color: "#7B5CF6" }}>あなたの4軸スコア</h2>
       </div>
       <div className="flex flex-col gap-4">
-        {axes.map((ax, i) => (
-          <div key={i}>
-            <div className="flex justify-between text-xs mb-1">
-              <span className="font-bold" style={{ color: ax.color }}>{ax.label1}</span>
-              <span className="text-gray-400">{ax.label2}</span>
+        {axes.map((ax, i) => {
+          const leftPct = ax.pct;
+          const rightPct = 100 - ax.pct;
+          const leftWins = leftPct >= rightPct;
+          return (
+            <div key={i}>
+              <div className="flex justify-between text-xs mb-1">
+                <span style={{ fontWeight: leftWins ? "700" : "400", color: leftWins ? ax.color : "#9CA3AF" }}>
+                  {ax.label1} {leftPct}%
+                </span>
+                <span style={{ fontWeight: !leftWins ? "700" : "400", color: !leftWins ? ax.color : "#9CA3AF" }}>
+                  {rightPct}% {ax.label2}
+                </span>
+              </div>
+              <div className="relative w-full rounded-full overflow-hidden" style={{ height: "8px", background: "rgba(156,163,175,0.15)" }}>
+                <div className="absolute left-0 top-0 h-full rounded-l-full"
+                  style={{ width: `${leftPct}%`, background: leftWins ? ax.color : "rgba(156,163,175,0.3)" }} />
+                <div className="absolute right-0 top-0 h-full rounded-r-full"
+                  style={{ width: `${rightPct}%`, background: !leftWins ? ax.color : "rgba(156,163,175,0.3)" }} />
+              </div>
             </div>
-            <div className="relative w-full h-3 rounded-full" style={{ background: "rgba(123,92,246,0.08)" }}>
-              <div className="absolute left-0 top-0 h-3 rounded-full transition-all duration-700"
-                style={{ width: `${ax.pct}%`, background: `linear-gradient(90deg, ${ax.color}, ${ax.colorEnd})` }} />
-            </div>
-            <div className="flex justify-between text-xs mt-1">
-              <span style={{ color: ax.color, fontWeight: "bold" }}>{ax.pct}%</span>
-              <span className="text-gray-300">{100 - ax.pct}%</span>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -514,7 +521,9 @@ function ResultContent() {
           </div>
         </div>
       </div>
-
+<div className="max-w-2xl md:max-w-4xl mx-auto mb-3">
+          <AxisBarometer scores={axisScores} />
+        </div>
       <div className="max-w-2xl md:max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
         {categories.map((cat) => (
           <div key={cat.key} className="rounded-2xl p-5" style={{ background: "white", border: "1px solid rgba(123,92,246,0.1)", boxShadow: "0 2px 8px rgba(123,92,246,0.04)" }}>
@@ -528,8 +537,7 @@ function ResultContent() {
       </div>
 
       <div className="max-w-2xl mx-auto">
-      <AxisBarometer scores={axisScores} />
-        <CompatibilitySection myCode={typeCode} />
+      <CompatibilitySection myCode={typeCode} />
         <div className="flex gap-3 flex-wrap justify-center mb-4">
           <button onClick={() => router.push("/")} className="px-6 py-3 rounded-full text-sm font-medium transition text-gray-600" style={{ background: "white", border: "1px solid rgba(123,92,246,0.2)" }}>
             トップに戻る
