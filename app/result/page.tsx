@@ -419,7 +419,40 @@ function CompatibilitySection({ myCode }: { myCode: string }) {
     </div>
   );
 }
-
+function AxisBarometer({ scores }: { scores: number[] }) {
+  const axes = [
+    { label1: "チーム型", label2: "ソロ型", color: "#C84B8B", colorEnd: "#3B82F6", pct: scores[0] },
+    { label1: "攻撃型", label2: "守備型", color: "#8B5CF6", colorEnd: "#06B6D4", pct: scores[1] },
+    { label1: "情熱型", label2: "思考型", color: "#10B981", colorEnd: "#84CC16", pct: scores[2] },
+    { label1: "行動型", label2: "計画型", color: "#F59E0B", colorEnd: "#EF4444", pct: scores[3] },
+  ];
+  return (
+    <div className="w-full rounded-2xl p-5 mb-3" style={{ background: "white", border: "1px solid rgba(123,92,246,0.1)", boxShadow: "0 2px 8px rgba(123,92,246,0.04)" }}>
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-base">📊</span>
+        <h2 className="text-sm font-bold tracking-wide" style={{ color: "#7B5CF6" }}>あなたの4軸スコア</h2>
+      </div>
+      <div className="flex flex-col gap-4">
+        {axes.map((ax, i) => (
+          <div key={i}>
+            <div className="flex justify-between text-xs mb-1">
+              <span className="font-bold" style={{ color: ax.color }}>{ax.label1}</span>
+              <span className="text-gray-400">{ax.label2}</span>
+            </div>
+            <div className="relative w-full h-3 rounded-full" style={{ background: "rgba(123,92,246,0.08)" }}>
+              <div className="absolute left-0 top-0 h-3 rounded-full transition-all duration-700"
+                style={{ width: `${ax.pct}%`, background: `linear-gradient(90deg, ${ax.color}, ${ax.colorEnd})` }} />
+            </div>
+            <div className="flex justify-between text-xs mt-1">
+              <span style={{ color: ax.color, fontWeight: "bold" }}>{ax.pct}%</span>
+              <span className="text-gray-300">{100 - ax.pct}%</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 const categories = [
   { key: "strength" as const, icon: "👤", label: "あなたの強み・才能" },
   { key: "role" as const, icon: "📈", label: "活躍しやすい役割" },
@@ -431,6 +464,8 @@ function ResultContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const typeCode = searchParams.get("type") || "TAHM";
+  const scoresParam = searchParams.get("scores");
+  const axisScores = scoresParam ? scoresParam.split(",").map(Number) : [50, 50, 50, 50];
   const type = typeData[typeCode] || typeData["TAHM"];
   const shareText = encodeURIComponent(`私のビジネスアスリート適性診断結果は「${type.name}」でした！\n「${type.catch}」\n\nあなたも診断してみよう👇\nhttps://archial-diagnosis.vercel.app`);
 
@@ -493,6 +528,7 @@ function ResultContent() {
       </div>
 
       <div className="max-w-2xl mx-auto">
+      <AxisBarometer scores={axisScores} />
         <CompatibilitySection myCode={typeCode} />
         <div className="flex gap-3 flex-wrap justify-center mb-4">
           <button onClick={() => router.push("/")} className="px-6 py-3 rounded-full text-sm font-medium transition text-gray-600" style={{ background: "white", border: "1px solid rgba(123,92,246,0.2)" }}>

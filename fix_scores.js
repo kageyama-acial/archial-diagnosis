@@ -1,0 +1,13 @@
+﻿const fs = require('fs');
+let c = fs.readFileSync('app/diagnosis/page.tsx', 'utf8');
+const oldStr = `      const axisLetters = [["T","S"],["A","G"],["H","L"],["M","P"]];
+        const types = axisScores.map((score, i) => (score >= maxScores[i] / 2 ? axisLetters[i][0] : axisLetters[i][1]));
+        router.push(\`/result?type=\${types.join("")}\`);`;
+const newStr = `      const axisLetters = [["T","S"],["A","G"],["H","L"],["M","P"]];
+        const types = axisScores.map((score, i) => (score >= maxScores[i] / 2 ? axisLetters[i][0] : axisLetters[i][1]));
+        const pcts = axisScores.map((score, i) => Math.round((score / maxScores[i]) * 100));
+        router.push(\`/result?type=\${types.join("")}&scores=\${pcts.join(",")}\`);`;
+const count = c.split(oldStr).length - 1;
+c = c.split(oldStr).join(newStr);
+fs.writeFileSync('app/diagnosis/page.tsx', c, 'utf8');
+console.log('完了！置換数:' + count);

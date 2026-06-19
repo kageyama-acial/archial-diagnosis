@@ -93,7 +93,14 @@ export default function DiagnosisPage() {
 
   const handleAnswer = (questionId: number, score: number, reverse?: boolean) => {
     const actual = reverse ? 6 - score : score;
-    setAnswers(prev => ({ ...prev, [questionId]: actual }));
+    setAnswers(prev => {
+      if (prev[questionId] === actual) {
+        const next = { ...prev };
+        delete next[questionId];
+        return next;
+      }
+      return { ...prev, [questionId]: actual };
+    });
   };
 
   const handleNext = () => {
@@ -101,10 +108,11 @@ export default function DiagnosisPage() {
       const axisScores = sections.map(s =>
         s.questions.reduce((sum, q) => sum + (answers[q.id] || 0), 0)
       );
-      const maxScores = sections.map(s => s.questions.length * 5);
+      const maxScores = sections.map(s => s.questions.length * 7);
       const axisLetters = [["T","S"],["A","G"],["H","L"],["M","P"]];
       const types = axisScores.map((score, i) => (score >= maxScores[i] / 2 ? axisLetters[i][0] : axisLetters[i][1]));
-      router.push(`/result?type=${types.join("")}`);
+      const pcts = axisScores.map((score, i) => Math.round((score / maxScores[i]) * 100));
+        router.push(`/result?type=${types.join("")}&scores=${pcts.join(",")}`);
     } else {
       setCurrentSection(prev => prev + 1);
       window.scrollTo(0, 0);
@@ -127,7 +135,7 @@ export default function DiagnosisPage() {
           </div>
           <div className="w-full bg-white rounded-full h-1.5 mb-3" style={{ border: "1px solid rgba(123,92,246,0.1)" }}>
             <div className="h-1.5 rounded-full transition-all duration-500"
-  style={{ width: `${progress}%`, background: RAINBOW, backgroundSize: `${100 / (progress / 100)}% 100%`, backgroundPosition: "left center" }} />
+  style={{ width: `${progress}%`, background: `linear-gradient(90deg, ${section.color}, ${section.colorEnd})` }} />
           </div>
           <div className="flex gap-2 justify-center">
             {sections.map((s, i) => (
@@ -233,7 +241,7 @@ export default function DiagnosisPage() {
           disabled={!sectionAnswered}
           className="w-full py-4 rounded-full font-bold text-white text-base transition-all duration-200"
           style={{
-            background: sectionAnswered ? `linear-gradient(135deg, ${section.color}, ${section.colorEnd})` : "rgba(123,92,246,0.2)",
+            background: sectionAnswered ? `linear-gradient(135deg, ${section.color}, ${section.colorEnd})` : `linear-gradient(135deg, ${section.color}40, ${section.colorEnd}40)`,
             cursor: sectionAnswered ? "pointer" : "not-allowed",
             boxShadow: sectionAnswered ? `0 4px 16px ${section.color}40` : "none",
           }}
