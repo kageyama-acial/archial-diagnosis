@@ -17,7 +17,7 @@ export default function Home() {
           <img src="/logo.png" alt="AcialDesign" style={{ height: "28px", width: "auto" }} />
           <nav className="hidden md:flex items-center gap-8 text-sm text-gray-600">
             <Link href="#features" className="hover:text-purple-600 transition">診断の流れ</Link>
-            <Link href="#types" className="hover:text-purple-600 transition">16のタイプ</Link>
+            <Link href="#types" className="hover:text-purple-600 transition">16タイプ一覧</Link>
             <Link href="#about" className="hover:text-purple-600 transition">特徴・活かし方</Link>
             <Link href="#faq" className="hover:text-purple-600 transition">よくある質問</Link>
           </nav>
