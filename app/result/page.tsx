@@ -311,7 +311,7 @@ const bridgeComments: { [key: string]: string } = {
 };
 const typeNames: { [k: string]: string } = {
   TAHM:"最強のゲームメーカー",TALM:"冷静なスパイカー",TAHP:"情熱のフランカー",TALP:"頭脳派アタッカー",
-  TGHM:"闘志のラインバッカー",TGLM:"鉄壁のゴールキーパー",TGHP:"縁の下のボランチ",TGLP:"知将のキャッチャー",
+  TGHM:"熱血ラインバッカー",TGLM:"鉄壁のゴールキーパー",TGHP:"縁の下のボランチ",TGLP:"知将のキャッチャー",
   SAHM:"無双のハンター",SALM:"我が道を走るスプリンター",SAHP:"感性と戦略のストローカー",SALP:"型破りのスケーター",
   SGHM:"炎を宿すスイマー",SGLM:"理想追求のパフォーマー",SGHP:"孤高のソロパドラー",SGLP:"静寂のソロクライマー",
 };
